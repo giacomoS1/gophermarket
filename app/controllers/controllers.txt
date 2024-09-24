@@ -1,0 +1,1 @@
+controllers are similar to routes in that you will make js functions in here. HOWEVER it is different in that these functions may not be completely specific to a certain page. These functions may also be complex and require their own file for the sake of organization. This might include something like a function to format images, or maybe a function to call to the database.

@@ -1,0 +1,1 @@
+Routes are used to send people to different pages. Because this website will have many different functions, it would be incredibly hard to read our code if it was all in a single server file. Each page will have its own routing page so that interactions within each page can be split up into organized files.

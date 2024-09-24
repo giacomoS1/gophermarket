@@ -1,0 +1,1 @@
+This may seem redundent to have since there is a models folder, however the database folder is here to actually connect the website to the database. This folder will hold any database configuration settings we need including ip addresses and passwords(important!).
