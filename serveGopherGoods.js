@@ -1,10 +1,14 @@
 import express from "express";
 
 const app = express();
+// Port set here
 const PORT = 3000;
+// Sets destination for all ejs files
+app.set('views', './app/views');
+
 
 app.get("/", (req, res) => {
-  res.send("Hello");
+  res.render("index.ejs");
 });
 
 app.listen(PORT, () => {
