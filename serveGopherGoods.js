@@ -10,6 +10,7 @@ import session from "express-session"; // for google oauth
 
 // Imports below will be used for Routing pages
 import browseRoute from "./app/routes/browse.js";
+import accountRoute from "./app/routes/account.js";
 
 
 // This creates a variable called app, which will be used to call to our server. Use it to establish http requests
@@ -52,6 +53,7 @@ passport.use(new GoogleStrategy({
 app.use(express.static('./css'))
 
 app.use("/browse", browseRoute);
+app.use("/account", accountRoute);
 // Sets destination for all ejs files to the directory app/views.
 // Ejs applications use something called a views folder to hold all the main html pages we plan to use throughout the website. They will be formatted nearly exactly like the basic html page.
 app.set('views', './app/views');
@@ -78,11 +80,6 @@ app.get('/auth/google/callback',
   }
 );
 
-// account route - protected page
-app.get('/account', isLoggedIn, (req, res) => {
-  res.send(`<h1>Account<h1><p>Hello, ${req.user.displayName}</p><a href="/logout">Logout</a>`);
-});
-
 // logout route
 app.get('/logout', (req, res) => {
   req.logout((err) => {
@@ -94,7 +91,7 @@ app.get('/logout', (req, res) => {
 });
 
 // checks if user is authenticated
-function isLoggedIn(req, res, next) {
+export function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
