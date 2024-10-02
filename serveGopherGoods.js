@@ -4,16 +4,15 @@ var express = require("express")
 -- Please make sure that when you are learning node, that you use import, as using require will not work with our server.
 */
 import express from "express";
-import passport from "passport"; // for google oauth
-import {Strategy as GoogleStrategy} from "passport-google-oauth20"; // for google oauth
+import passport from "passport";
 import session from "express-session"; // for google oauth
 
 // Imports below will be used for Routing pages
+import authRoute from "./app/controllers/authentication.js";
 import browseRoute from "./app/routes/browse.js";
 import accountRoute from "./app/routes/account.js";
 
 
-// This creates a variable called app, which will be used to call to our server. Use it to establish http requests
 const app = express();
 // Port set here
 const PORT = 3000;
@@ -30,30 +29,12 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.serializeUser((user, done) => {
-  done(null, user);
-});
-
-passport.deserializeUser((user, done) => {
-  done(null, user);
-});
-
-// google oauth setup
-passport.use(new GoogleStrategy({
-  clientID: '994706186413-h03c8po5lklpnsp7dpmgl47ougg29rm4.apps.googleusercontent.com',
-  clientSecret: '', // insert client secret here from discord before trying
-  callbackURL: '/auth/google/callback',
-  scope: ['profile', 'email']
-}, (accessToken, refreshToken, profile, done) => {
-  // saving user info to dababase can be done here
-  done(null, profile) // passes use profile for now
-}));
-
 /* Static files are the local files that are going to be referenced ex:Images */
 app.use(express.static('./css'))
 
 app.use("/browse", browseRoute);
 app.use("/account", accountRoute);
+app.use("/", authRoute);
 // Sets destination for all ejs files to the directory app/views.
 // Ejs applications use something called a views folder to hold all the main html pages we plan to use throughout the website. They will be formatted nearly exactly like the basic html page.
 app.set('views', './app/views');
@@ -65,38 +46,6 @@ app.get("/", (req, res) => {
   res.render("index.ejs");
 
 });
-
-// google oauth login route
-app.get('/auth/google',
-  passport.authenticate('google', { scope: ['profile', 'email'] })
-);
-
-// google oauth callback route
-app.get('/auth/google/callback', 
-  passport.authenticate('google', { failureRedirect: '/'}),
-  (req, res) => {
-    // successful authentication
-    res.redirect('/account');
-  }
-);
-
-// logout route
-app.get('/logout', (req, res) => {
-  req.logout((err) => {
-    if (err) {
-      return next(err);
-    }
-    res.redirect('/');
-  });
-});
-
-// checks if user is authenticated
-export function isLoggedIn(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect('/');
-}
 
 app.listen(PORT, () => {
   console.log(`Gopher is running at http://localhost:${PORT}/`);
