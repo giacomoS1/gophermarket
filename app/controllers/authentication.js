@@ -1,5 +1,6 @@
 import express from "express";
 import passport from "passport"; // for google oauth
+import 'dotenv/config';
 import {Strategy as GoogleStrategy} from "passport-google-oauth20"; // for google oauth
 
 const app = express.Router();
@@ -14,8 +15,8 @@ passport.deserializeUser((user, done) => {
 
 // google oauth setup
 passport.use(new GoogleStrategy({
-  clientID: '994706186413-h03c8po5lklpnsp7dpmgl47ougg29rm4.apps.googleusercontent.com',
-  clientSecret: '', // insert client secret here from discord before trying
+  clientID: process.env.OAUTH_CLIENT_ID,
+  clientSecret: process.env.OAUTH_CLIENT_SECRET,
   callbackURL: '/auth/google/callback',
   scope: ['profile', 'email']
 }, (accessToken, refreshToken, profile, done) => {
