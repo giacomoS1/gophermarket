@@ -8,7 +8,7 @@ app.get('/', (req, res) => {
         if (err) {
             return next(err);
         }
-        res.redirect('/');
+        res.render("logout.ejs")
     });
 });
 

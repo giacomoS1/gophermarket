@@ -1,7 +1,6 @@
 import express from "express";
 import { isLoggedIn } from "../controllers/authentication.js";
 
-import pg from "pg";
 const app = express.Router();
 
 
