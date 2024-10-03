@@ -12,13 +12,14 @@ import "dotenv/config";
 import authRoute from "./app/controllers/authentication.js";
 import browseRoute from "./app/routes/browse.js";
 import accountRoute from "./app/routes/account.js";
+import logoutRoute from "./app/routes/logout.js";
 
 
 const app = express();
 // Port set here
 const PORT = 3000;
 
-// configures express-session
+// configures express-session, which allows persistence of data between http requests (such as a login state) through the use of cookies
 app.use(session({
   secret: process.env.EXPRESS_SESSION_SECRET,
   resave: false,
@@ -33,9 +34,10 @@ app.use(passport.session());
 /* Static files are the local files that are going to be referenced ex:Images */
 app.use(express.static('./css'))
 
+app.use("/logout", logoutRoute);
+app.use("/auth", authRoute);
 app.use("/browse", browseRoute);
 app.use("/account", accountRoute);
-app.use("/", authRoute);
 // Sets destination for all ejs files to the directory app/views.
 // Ejs applications use something called a views folder to hold all the main html pages we plan to use throughout the website. They will be formatted nearly exactly like the basic html page.
 app.set('views', './app/views');
