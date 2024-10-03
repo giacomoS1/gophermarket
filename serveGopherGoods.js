@@ -4,8 +4,9 @@ var express = require("express")
 -- Please make sure that when you are learning node, that you use import, as using require will not work with our server.
 */
 import express from "express";
-import passport from "passport";
-import session from "express-session"; // for google oauth
+import passport from "./app/controllers/passport.js";
+import session from "express-session";
+import "dotenv/config";
 
 // Imports below will be used for Routing pages
 import authRoute from "./app/controllers/authentication.js";
@@ -19,7 +20,7 @@ const PORT = 3000;
 
 // configures express-session
 app.use(session({
-  secret: 'asdgasdgfsadgfdsgsdfdsgfagfdsgdsfgfdsgfsdsdf', // placeholder - not secure!
+  secret: process.env.EXPRESS_SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
   cookie: { secure: false } // set to true once using https
