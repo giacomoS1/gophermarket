@@ -1,2 +1,3 @@
 # We need to make sure extra files will not be added in our github because it bloats it. People will be filled in on how to set up the server on their own computer.
 node_modules/
+.env
