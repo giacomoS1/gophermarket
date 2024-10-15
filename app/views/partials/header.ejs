@@ -1,8 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gopher Goods</title>
-    <link rel="stylesheet" href="bootstrap.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom Header with Search Bar and Buttons</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    /* Maroon and Gold color scheme */
+    .header-maroon {
+      background-color: #7A0019; /* Maroon */
+    }
+    .btn-gold {
+      background-color: #FFCC33; /* Gold */
+      color: #1E1E1E;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 400;
+      margin-left: 8px;
+    }
+    .btn-gold:hover {
+      background-color: #e6b830; /* Slightly darker gold on hover */
+      color: #1E1E1E;
+    }
+    /* Ensures the search bar fills available space */
+    .search-container {
+      flex-grow: 1;
+      max-width: 600px; /* Optional max-width to control length */
+      display: flex;
+      align-items: center;
+      margin-left: auto; /* Align the search bar to the right */
+    }
+    .search-input {
+      width: 100%; /* Ensures the search bar fills its container */
+      height: 40px; /* Adjust height as needed */
+      margin-right: -8px; /* Move it closer to the Search button */
+    }
+    .logo-title {
+      display: flex;
+      align-items: center;
+    }
+    .logo-title h1 {
+      font-size: 1.8rem;
+      color: white;
+      margin-left: 15px; /* Space between the image and the title */
+    }
+  </style>
 </head>
+<body>
+
+  <!-- Custom Header Section with Full-Width Search Bar and Gold Buttons -->
+  <div class="container-fluid text-light header-maroon" style="border-bottom: 1px #D9D9D9 solid;">
+    <div class="row align-items-center" style="padding: 16px 32px;">
+      
+      <!-- Left Side: Logo and Title -->
+      <div class="col-md-4 d-flex align-items-center logo-title">
+        <img class="img-fluid" style="max-width: 186px; height: auto;" src="https://profiles-vetmed.umn.edu/sites/profiles-vetmed.umn.edu/files/styles/full_width_1200_x_600/public/2018-12/goldyM2out_1200x600.png?itok=-_NoFzgC" alt="University of Minnesota Emblem">
+        <h1>Gopher Marketplace</h1>
+      </div>
+
+      <!-- Center: Search Bar Positioned Right Next to Search Button -->
+      <div class="col-md search-container d-flex justify-content-end">
+        <input class="form-control search-input" type="search" placeholder="Search" aria-label="Search">
+      </div>
+
+      <!-- Right Side: Search Button and Navigation Buttons -->
+      <div class="col-md-4 d-flex justify-content-end align-items-center">
+        <!-- Search Button (fixed position) -->
+        <button class="btn btn-outline-light" type="submit">Search</button>
+        <!-- Navigation Buttons -->
+        <button class="btn btn-gold ml-2">Home</button>
+        <button class="btn btn-gold">All Listings</button>
+        <button class="btn btn-gold">List an Item</button>
+        <button class="btn btn-gold">About</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
