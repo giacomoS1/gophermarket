@@ -38,6 +38,9 @@ app.use("/logout", logoutRoute);
 app.use("/auth", authRoute);
 app.use("/browse", browseRoute);
 app.use("/account", accountRoute);
+
+import upload from "./app/controllers/responsiveImg.js";
+app.use("/upload", upload);
 // Sets destination for all ejs files to the directory app/views.
 // Ejs applications use something called a views folder to hold all the main html pages we plan to use throughout the website. They will be formatted nearly exactly like the basic html page.
 app.set('views', './app/views');
