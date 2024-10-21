@@ -10,16 +10,19 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "body-parser": "^1.20.3",
     "bootstrap": "^5.3.3",
     "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
     "express": "^4.21.0",
     "express-session": "^1.18.0",
+    "heic-convert": "^2.1.0",
     "nodemon": "^3.1.7",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
     "pg": "^8.13.0",
     "sass": "^1.79.4",
-    "scss": "^0.2.4"
+    "scss": "^0.2.4",
+    "sharp": "^0.33.5"
   }
 }
