@@ -1,5 +1,5 @@
 // Imports are packages that are used in a js file. We will be using something called ES6, which imports node modules a bit differently compared to old methods.
-/* Example of old method: 
+/* Example of old method:
 var express = require("express")
 -- Please make sure that when you are learning node, that you use import, as using require will not work with our server.
 */
@@ -13,6 +13,7 @@ import authRoute from "./app/controllers/authentication.js";
 import browseRoute from "./app/routes/browse.js";
 import accountRoute from "./app/routes/account.js";
 import logoutRoute from "./app/routes/logout.js";
+import listingRoute from "./app/routes/listing.js";
 
 
 const app = express();
@@ -38,6 +39,7 @@ app.use("/logout", logoutRoute);
 app.use("/auth", authRoute);
 app.use("/browse", browseRoute);
 app.use("/account", accountRoute);
+app.use("/listing", listingRoute);
 
 import upload from "./app/controllers/responsiveImg.js";
 app.use("/upload", upload);
@@ -55,4 +57,4 @@ app.get("/", (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Gopher is running at http://localhost:${PORT}/`);
-}); 
+});
