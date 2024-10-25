@@ -8,16 +8,18 @@ import convert from 'heic-convert';
 
 const heicToPng = (async (dir, name) => {
     try{
+        console.log(dir)
+        console.log(name)
         const inputBuffer = await promisify(fs.readFile)(dir);
         const outputBuffer = await convert({
           buffer: inputBuffer, // the HEIC file buffer
           format: 'PNG'        // output format
         });
       
-        await promisify(fs.writeFile)(`./${name}`, outputBuffer);
+        await promisify(fs.writeFile)(`${name}.PNG`, outputBuffer);
     }
     catch (error) {
-        console.log("error");
+        console.log(error);
     }
 
 });
