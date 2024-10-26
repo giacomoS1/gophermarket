@@ -1,5 +1,45 @@
 import pool from "../database/config.js"
 
+// adds a product to database with args
+export const addProduct = async (product_name, price, user_id) => {
+    // we're taking a different approach here, since we are adding to multiple tables, we want to ensure that either everything gets added, or nothing does
+    const client = await pool.connect();
+    try {
+        await client.query('BEGIN'); // starts transaction
+
+        // inserts product into products table
+        const productResult = await client.query(
+            `INSERT INTO Products
+             (product_name, price, upload_date)
+             VALUES ($1, $2, NOW()) RETURNING *`, [product_name, price]
+        );
+        // we don't need a list here since its only one product, so we only grab the first (only element)
+        const product = productResult.rows[0]
+
+        // associates the product with the user in User_Product table
+        await client.query(
+            `INSERT INTO User_Product (user_id, product_id)
+             VALUES ($1, $2)`, [user_id, product.product_id]
+        );
+
+        // adds the product to the Tag_Product table with no tags (tags can be added later)
+        await client.query(
+            `INSERT INTO Tag_Product (product_id, tag_id)
+             VALUES ($1, NULL)`, [product.product_id]
+        );
+
+        await client.query('COMMIT'); // commits changes if no errors
+        return product;
+    } catch (err) {
+        await client.query('ROLLBACK'); // rollbacks transaction in case of error
+        console.error("Error adding product to the database", err);
+        throw err;
+    } finally {
+        client.release(); // releases the client back to the pool
+    }
+};
+
+// fetches products by number of products per page and page number
 export const getAllProductsByPage = async (limit, page) => {
     const offset = (page - 1) * limit // calculates the offset based on the page number
 
@@ -14,6 +54,7 @@ export const getAllProductsByPage = async (limit, page) => {
     }
 };
 
+// fetches productss by tagId(s), number of products per page, and page number
 export const getProductsByTagsAndPage = async (tagIds, limit, page) => {
     const offset = (page - 1) * limit;
     const tagPlaceholders = tagIds.map((_, index) => `$${index + 1}`).join(', ');
@@ -34,7 +75,8 @@ export const getProductsByTagsAndPage = async (tagIds, limit, page) => {
     }
 };
 
-export const getProductsByUserID = async (user_id) => { // fetches products by user id
+// fetches products by user id
+export const getProductsByUserID = async (user_id) => {
     try {
         const products = await pool.query(
             `SELECT p.* FROM Products p
