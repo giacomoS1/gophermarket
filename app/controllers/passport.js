@@ -18,7 +18,7 @@ passport.use(new GoogleStrategy({
 
       const user = await findUserByEmail(email);
       if (!user) {  // checks to see if user actually existed or not
-        const newUser = await createUser(email, firstName, lastname);
+        const newUser = await createUser(email, firstName, lastName);
         console.log("New user created:", newUser); 
         done(null, newUser); // returns user, null signifies that there wasn't an error here
       } else {
