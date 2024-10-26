@@ -1,7 +1,7 @@
 -- Creates a table of all the products
 CREATE TABLE Products(
 	product_id serial PRIMARY KEY,
-	product_name int,
+	product_name varchar(255),
 	price numeric,
 	upload_date date
 );
