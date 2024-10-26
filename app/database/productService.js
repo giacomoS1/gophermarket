@@ -12,7 +12,7 @@ export const getAllProductsByPage = async (limit, page) => {
         console.error("Error fetching items from the database", err)
         throw err;
     }
-}
+};
 
 export const getProductsByTagsAndPage = async (tagIds, limit, page) => {
     const offset = (page - 1) * limit;
@@ -32,4 +32,18 @@ export const getProductsByTagsAndPage = async (tagIds, limit, page) => {
         console.error("Error fetching items by tags from the database", err);
         throw err;
     }
-}
+};
+
+export const getProductsByUserID = async (user_id) => { // fetches products by user id
+    try {
+        const products = await pool.query(
+            `SELECT p.* FROM Products p
+             JOIN User_Product up ON p.product_id = up.product_id
+             WHERE up.user_id = $1`, [user_id]
+          );
+          return products.rows;
+    } catch (err) {
+        console.error("Error fetching products by user ID from the database", err);
+        throw err;
+    }
+  };
