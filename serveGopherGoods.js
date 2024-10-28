@@ -12,7 +12,7 @@ import "dotenv/config";
 import authRoute from "./app/controllers/authentication.js";
 import browseRoute from "./app/routes/browse.js";
 import accountRoute from "./app/routes/account.js";
-import logoutRoute from "./app/routes/logout.js";
+// import logoutRoute from "./app/routes/logout.js";
 
 
 const app = express();
@@ -34,7 +34,7 @@ app.use(passport.session());
 /* Static files are the local files that are going to be referenced ex:Images */
 app.use(express.static('./css'))
 
-app.use("/logout", logoutRoute);
+// app.use("/logout", logoutRoute);
 app.use("/auth", authRoute);
 app.use("/browse", browseRoute);
 app.use("/account", accountRoute);
