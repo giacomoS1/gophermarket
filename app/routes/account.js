@@ -17,8 +17,8 @@ app.get('/logout', (req, res) => {
         if (err) {
             return next(err);
         }
-        res.render("account.ejs", {logout: true})
     });
+    res.render("account.ejs", {logout: true})
 });
 
 export default app;

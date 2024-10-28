@@ -105,3 +105,18 @@ export const getProductAndUserInfoByProductID = async (prodID) => {
         throw err;
     }
 };
+
+export const getTags = async (prodID) => {
+    try {
+        const products = await pool.query(
+            `SELECT tags.*,COUNT(tag_product.tag_id)
+             FROM tag_product
+             FULL JOIN tags ON tags.tag_id = tag_product.tag_id
+             GROUP BY tags.tag_id ORDER BY tags.tag_id ASC`
+        );
+        return products.rows
+    } catch {
+        console.error("Error fetching tags and tag count", err);
+        throw err;
+    }
+};

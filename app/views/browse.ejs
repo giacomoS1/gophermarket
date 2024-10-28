@@ -7,28 +7,19 @@
     </header> -->
 
     <!-- Main content with categories and products grid -->
-    <div id="main-content" class="container-fluid mt-4">
+    <div id="main-content" class="container-fluid">
         <div class="row">
             <!-- Categories Sidebar -->
-            <aside id="categories" class="col-md-2">
-                <ul class="list-group">
-                    <li class="list-group-item">Furniture</li>
-                    <li class="list-group-item">Electronics</li>
-                    <li class="list-group-item">Transportation</li>
-                    <li class="list-group-item">Apparel</li>
-                    <li class="list-group-item">Household</li>
-                    <li class="list-group-item">School</li>
-                    <li class="list-group-item">Sports</li>
-                    <li class="list-group-item">Entertainment</li>
-                    <li class="list-group-item">Art</li>
-                    <li class="list-group-item">Instruments</li>
-                    <li class="list-group-item">Free Stuff</li>
-                    <li class="list-group-item">More Categories...</li>
+            <aside id="categories" class="col-md-2 p-0">
+                <ul class="list-group-flush p-0">
+                    <% tagList.forEach(tag => { %>
+                        <li class="list-group-item"><a class="nav-link"><%- tag.tag_name %></a></li>
+                    <% }); %>
                 </ul>
             </aside>
 
             <!-- Product Cards Section -->
-            <div class="col-md-10">
+            <div class="col-md-10 mt-2">
                 <%- include("partials/productcards.ejs") %>
                 
             </div>
