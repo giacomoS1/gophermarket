@@ -7,7 +7,7 @@ import * as productService from "../database/productService.js";
 app.get("/", async (req,res) => {
     if (req.query.prodID) {
         console.log(req.query.prodID);
-        const product = await productService.getProductById(req.query.prodID)
+        const product = await productService.getProductAndUserInfoByProductID(req.query.prodID)
         console.log(product)
         res.render("product.ejs", {product: product[0]})
     } else {
