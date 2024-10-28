@@ -90,18 +90,18 @@ export const getProductsByUserID = async (user_id) => {
     }
   };
 
-// fetches product by product id DISCLAIMER -- still broken, joins not working the way I want it to
-export const getProductById = async (prodID) => {
+// fetches product and associated user info by product id
+export const getProductAndUserInfoByProductID = async (prodID) => {
     try {
         const products = await pool.query(
-            `SELECT * FROM products
+            `SELECT products.*, up.user_id, u.first_name, u.last_name, u.email FROM products
              JOIN User_Product up ON products.product_id = up.product_id
-             WHERE
-             product_id = $1`, [prodID]
+             JOIN Users u ON up.user_id = u.user_id
+             WHERE products.product_id = $1`, [prodID]
         );
         return products.rows;
     } catch (err) {
-        console.error("Error Fetching product by ID", err);
+        console.error("Error fetching product and user ID by product ID from the database", err);
         throw err;
     }
 };
