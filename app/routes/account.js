@@ -27,8 +27,9 @@ app.get('/logout', (req, res) => {
 // route to handle product listing form submission
 app.post('/list-product', isLoggedIn, async (req, res) => {
     const { productName, price } = req.body;
+    console.log(req)
     try {
-        await addProduct(productName, price, req.user.id);
+        await addProduct(productName, price, req.user.user_id);
         res.redirect('/account');
     } catch (err) {
         console.error("Error listing product", err);
