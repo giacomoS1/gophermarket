@@ -1,10 +1,25 @@
 <%- include("partials/header.ejs") -%>
 <% if (logout == false) {%>
-<h1>Account<h1>
-<p>Hello, <%-name-%></p>
+<h1>Account</h1>
+<p>Hello, <%- name -%></p>
 <a href="/">Home</a>
 <a href="/browse"><br>Browse</a>
 <a href="/account/logout"><br>Logout</a>
+
+<!-- Product Listing Form -->
+<h2>List a Product</h2>
+<form action="/account/list-product" method="POST">
+    <div>
+        <label for="productName">Product Name:</label>
+        <input type="text" id="productName" name="productName" required>
+    </div>
+    <div>
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" required>
+    </div>
+    <button type="submit">List Product</button>
+</form>
+
 <% } else { %>
     <h1 class="container">You have been successfully logged out.</h1>
     <h1 class="container"><a href="/">Home</a></h1>
